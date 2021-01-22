@@ -3,13 +3,12 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import StatisticsScreen from './Screens/StatisticsScreen';
-import TodosScreen from './Screens/TodosScreen';
+import AuthScreen from './src/screens/auth';
+import MainScreen from './src/screens/main';
 import SplashScreen from 'react-native-splash-screen';
-import { RootStackParamList } from './Screens/RootStackParamList';
+import { RootStackParamList } from './src/screens/RootStackParamList';
 
-const RootStack = createBottomTabNavigator<RootStackParamList>();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 function App() {
   useEffect(() => {
@@ -20,9 +19,9 @@ function App() {
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator initialRouteName="Todos">
-        <RootStack.Screen name="Todos" component={TodosScreen} />
-        <RootStack.Screen name="Statistics" component={StatisticsScreen} />
+      <RootStack.Navigator initialRouteName="auth">
+        <RootStack.Screen name="auth" component={AuthScreen} />
+        <RootStack.Screen name="main" component={MainScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
