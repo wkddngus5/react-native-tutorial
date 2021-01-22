@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { RootStoreState } from '../../../reducer/index';
 import { addTodo, toggleDoneTodo } from '../../../actions/Todo';
 import { useDispatch, useSelector } from 'react-redux';
 import Todo from '../../../../classes/Todo';
+import TodoComponent from '../../../components/Todo';
 
 export default function TodosScreen() {
   const dispatch = useDispatch();
@@ -18,6 +19,21 @@ export default function TodosScreen() {
     setTitle('');
   }, [dispatch, title]);
 
+  const todoList = useMemo(() => {
+    return todos.map((todo, index) => {
+      const onToggleDoneTodo = () => {
+        dispatch(toggleDoneTodo({ index, isDone: todo.isDone }));
+      };
+      return (
+        <TodoComponent
+          todo={todo}
+          key={index}
+          onChangeDone={onToggleDoneTodo}
+        />
+      );
+    });
+  }, [todos, dispatch]);
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Todos Screen</Text>
@@ -27,30 +43,7 @@ export default function TodosScreen() {
         placeholder="todo title"
       />
       <Button title="ADD" onPress={onAddTodo} />
-      {todos.map(({ title, isDone }, index) => {
-        const onToggleDoneTodo = () => {
-          dispatch(toggleDoneTodo({ index, isDone }));
-        };
-        return (
-          <View style={styles.todo} data-id={index} key={index}>
-            <Text style={styles.todoTitle}>{title}</Text>
-            <CheckBox value={isDone} onChange={onToggleDoneTodo} />
-          </View>
-        );
-      })}
+      {todoList}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  todo: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  todoTitle: {
-    fontSize: 30,
-    marginRight: 10,
-  },
-});
