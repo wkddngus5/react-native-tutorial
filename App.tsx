@@ -1,6 +1,7 @@
 // In App.js in a new project
 
 import React, { useEffect } from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AuthScreen from './src/screens/auth';
@@ -18,13 +19,21 @@ function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <RootStack.Navigator initialRouteName="auth">
-        <RootStack.Screen name="auth" component={AuthScreen} />
-        <RootStack.Screen name="main" component={MainScreen} />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <NavigationContainer>
+        <RootStack.Navigator initialRouteName="auth">
+          <RootStack.Screen name="auth" component={AuthScreen} />
+          <RootStack.Screen name="main" component={MainScreen} />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;
