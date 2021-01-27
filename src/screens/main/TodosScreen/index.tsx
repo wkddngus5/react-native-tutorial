@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import { View, Text, Button, TextInput } from 'react-native';
 import { RootStoreState } from '../../../reducer/index';
 import { addTodo, toggleDoneTodo } from '../../../actions/Todo';
 import { useDispatch, useSelector } from 'react-redux';

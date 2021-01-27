@@ -11,7 +11,6 @@ export default function TodoComponent({
   onChangeDone: () => void;
 }) {
   const { title, isDone } = todo;
-  console.log('CALL');
   return (
     <View style={styles.todo}>
       <Text style={styles.todoTitle}>{title}</Text>
