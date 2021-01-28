@@ -1,4 +1,4 @@
-import Todo from '../../../classes/Todo';
+import Todo from '../../Todo';
 import { TODO_ACTION, TODO_ACTION_TYPE } from '../../actions/Todo';
 
 const initialState = { todos: [] };

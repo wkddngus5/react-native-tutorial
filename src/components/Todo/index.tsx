@@ -1,7 +1,7 @@
 import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Todo from '../../../classes/Todo';
+import Todo from '../../Todo';
 
 export default function TodoComponent({
   todo,

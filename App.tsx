@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   splashScreen: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignContent: 'center',
-    height: '100%',
   },
   splashText: {
     textAlign: 'center',

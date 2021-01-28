@@ -3,7 +3,7 @@ import { View, Text, Button, TextInput, Modal, StyleSheet } from 'react-native';
 import { RootStoreState } from '../../../reducer/index';
 import { addTodo, toggleDoneTodo } from '../../../actions/Todo';
 import { useDispatch, useSelector } from 'react-redux';
-import Todo from '../../../../classes/Todo';
+import Todo from '../../../Todo';
 import TodoComponent from '../../../components/Todo';
 
 export default function TodosScreen() {
@@ -58,9 +58,9 @@ export default function TodosScreen() {
 
 const styles = StyleSheet.create({
   modalBody: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignContent: 'center',
-    height: '100%',
   },
   modalText: {
     textAlign: 'center',

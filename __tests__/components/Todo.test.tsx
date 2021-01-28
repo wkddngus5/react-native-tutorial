@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import TodoComponent from '../../src/components/Todo';
-import Todo from '../../classes/Todo';
+import Todo from '../../src/Todo';
 
 describe('Todo Component', () => {
   it('test', () => {
