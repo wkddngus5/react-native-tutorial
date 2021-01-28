@@ -1,25 +1,49 @@
-import React, { useCallback, useState } from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import React, { useCallback, useMemo, useState } from 'react';
+import { View, Text, Button, TextInput, Modal, StyleSheet } from 'react-native';
 import { RootStoreState } from '../../../reducer/index';
 import { addTodo, toggleDoneTodo } from '../../../actions/Todo';
 import { useDispatch, useSelector } from 'react-redux';
 import Todo from '../../../../classes/Todo';
+import TodoComponent from '../../../components/Todo';
 
 export default function TodosScreen() {
   const dispatch = useDispatch();
-  const todos = useSelector<RootStoreState, Todo[]>(
-    (store): Todo[] => store.todo.todos,
-  );
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const todos = useSelector<RootStoreState, Todo[]>((store): Todo[] => {
+    return store.todo.todos;
+  });
   const [title, setTitle] = useState<string>('');
 
   const onAddTodo = useCallback(() => {
     dispatch(addTodo({ title }));
     setTitle('');
+    setShowModal(true);
   }, [dispatch, title]);
+
+  const todoList = useMemo(() => {
+    return todos.map((todo, index) => {
+      const onToggleDoneTodo = () => {
+        dispatch(toggleDoneTodo({ index, isDone: todo.isDone }));
+      };
+      return (
+        <TodoComponent
+          todo={todo}
+          key={index}
+          onChangeDone={onToggleDoneTodo}
+        />
+      );
+    });
+  }, [todos, dispatch]);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Modal visible={showModal}>
+        <View style={styles.modalBody}>
+          <Text style={styles.modalText}>new Todo is added!</Text>
+          <Button title="OK" onPress={() => setShowModal(false)} />
+        </View>
+      </Modal>
       <Text>Todos Screen</Text>
       <TextInput
         value={title}
@@ -27,30 +51,18 @@ export default function TodosScreen() {
         placeholder="todo title"
       />
       <Button title="ADD" onPress={onAddTodo} />
-      {todos.map(({ title, isDone }, index) => {
-        const onToggleDoneTodo = () => {
-          dispatch(toggleDoneTodo({ index, isDone }));
-        };
-        return (
-          <View style={styles.todo} data-id={index} key={index}>
-            <Text style={styles.todoTitle}>{title}</Text>
-            <CheckBox value={isDone} onChange={onToggleDoneTodo} />
-          </View>
-        );
-      })}
+      {todoList}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  todo: {
-    display: 'flex',
-    flexDirection: 'row',
+  modalBody: {
+    justifyContent: 'center',
     alignContent: 'center',
-    alignItems: 'center',
+    height: '100%',
   },
-  todoTitle: {
-    fontSize: 30,
-    marginRight: 10,
+  modalText: {
+    textAlign: 'center',
   },
 });

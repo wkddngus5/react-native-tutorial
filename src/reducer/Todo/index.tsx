@@ -3,7 +3,7 @@ import { TODO_ACTION, TODO_ACTION_TYPE } from '../../actions/Todo';
 
 const initialState = { todos: [] };
 
-const todo = (state = initialState, action: TODO_ACTION) => {
+const TodoReducer = (state = initialState, action: TODO_ACTION) => {
   const { todos }: { todos: Todo[] } = state;
   switch (action.type) {
     case TODO_ACTION_TYPE.ADD:
@@ -19,4 +19,4 @@ const todo = (state = initialState, action: TODO_ACTION) => {
   }
 };
 
-export default todo;
+export default TodoReducer;

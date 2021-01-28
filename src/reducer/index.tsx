@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import Todo from '../../classes/Todo';
-import todo from './Todo';
+import TodoReducer from './Todo';
 
 const rootReducer = combineReducers({
-  todo,
+  todo: TodoReducer,
 });
 
 export default rootReducer;
