@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, Button, TextInput, Modal, StyleSheet } from 'react-native';
 import { RootStoreState } from '../../../reducer/index';
 import { addTodo, toggleDoneTodo } from '../../../actions/Todo';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,14 +8,17 @@ import TodoComponent from '../../../components/Todo';
 
 export default function TodosScreen() {
   const dispatch = useDispatch();
-  const todos = useSelector<RootStoreState, Todo[]>(
-    (store): Todo[] => store.todo.todos,
-  );
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const todos = useSelector<RootStoreState, Todo[]>((store): Todo[] => {
+    return store.todo.todos;
+  });
   const [title, setTitle] = useState<string>('');
 
   const onAddTodo = useCallback(() => {
     dispatch(addTodo({ title }));
     setTitle('');
+    setShowModal(true);
   }, [dispatch, title]);
 
   const todoList = useMemo(() => {
@@ -35,6 +38,12 @@ export default function TodosScreen() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Modal visible={showModal}>
+        <View style={styles.modalBody}>
+          <Text style={styles.modalText}>new Todo is added!</Text>
+          <Button title="OK" onPress={() => setShowModal(false)} />
+        </View>
+      </Modal>
       <Text>Todos Screen</Text>
       <TextInput
         value={title}
@@ -46,3 +55,14 @@ export default function TodosScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  modalBody: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    height: '100%',
+  },
+  modalText: {
+    textAlign: 'center',
+  },
+});

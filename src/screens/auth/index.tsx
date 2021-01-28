@@ -4,10 +4,8 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import { RootStackParamList } from '../RootStackParamList';
-import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './Login';
 import SignupScreen from './Signup';
-import { Text, View } from 'react-native';
 
 type AuthScreenNavigationProp = StackNavigationProp<RootStackParamList, 'auth'>;
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import configureStore from 'redux-mock-store';
-import TodosScreen from '../src/screens/main/TodosScreen';
+import TodosScreen from '../../../src/screens/main/TodosScreen';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import rootReducer from '../src/reducer';
+import rootReducer from '../../../src/reducer';
 import { ReactTestInstance } from 'react-test-renderer';
 
 const mockStore = configureStore([]);
